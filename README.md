@@ -1,1 +1,11 @@
-# Appbuilder
+
+  # App Builder
+
+  This is a code bundle for App Builder. The original project is available at https://www.figma.com/design/kjgl6S57mhFzekNF1HlPj0/App-Builder.
+
+  ## Running the code
+
+  Run `npm i` to install the dependencies.
+
+  Run `npm run dev` to start the development server.
+  
