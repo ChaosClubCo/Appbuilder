@@ -1,10 +1,16 @@
 import React from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { TrustedBy } from './components/TrustedBy';
 import { Features } from './components/Features';
 import { Architecture } from './components/Architecture';
+import { Testimonials } from './components/Testimonials';
 import { Pricing } from './components/Pricing';
+import { FAQ } from './components/FAQ';
+import { Contact } from './components/Contact';
 import { Newsletter } from './components/Newsletter';
+import logo3D from 'figma:asset/676d3e83379c91f0e4d0eaddd3fc40a84d24b262.png';
+import { ImageWithFallback } from './components/figma/ImageWithFallback';
 
 export default function App() {
   return (
@@ -13,9 +19,13 @@ export default function App() {
       
       <main>
         <Hero />
+        <TrustedBy />
         <Features />
         <Architecture />
+        <Testimonials />
         <Pricing />
+        <FAQ />
+        <Contact />
         <Newsletter />
       </main>
 
@@ -23,9 +33,11 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-orange-400 bg-clip-text text-transparent mb-4 inline-block">
-                FlashFusion
-              </span>
+              <ImageWithFallback 
+                src={logo3D} 
+                alt="FlashFusion" 
+                className="h-16 w-auto mb-4 object-contain"
+              />
               <p className="text-gray-400 max-w-sm">
                 Powering the next generation of intelligent workflows. 
                 Seamlessly integrated, secure, and lightning fast.

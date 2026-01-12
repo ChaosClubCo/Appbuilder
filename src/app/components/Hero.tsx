@@ -2,7 +2,8 @@ import React from 'react';
 import { Button } from './ui/button';
 import { motion } from 'motion/react';
 import { ArrowUpRight, Shield, DollarSign, ChevronRight } from 'lucide-react';
-import heroBackground from 'figma:asset/44e17e40ead8beb0d06e6cc650f67b517a27cf84.png';
+import heroBackground from 'figma:asset/ac1592707009a6008e5d35d6cef2bbf48e598dca.png';
+import robotMascot from 'figma:asset/aa3a04cafd8652eb28d940d90f801eba2f075c49.png';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
 export function Hero() {
@@ -12,8 +13,8 @@ export function Hero() {
       <div className="absolute inset-0 z-0">
         <ImageWithFallback
           src={heroBackground}
-          alt="Office Background"
-          className="w-full h-full object-cover opacity-40"
+          alt="Abstract Glassmorphism Background"
+          className="w-full h-full object-cover opacity-50"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/60 to-slate-950" />
       </div>
@@ -91,6 +92,20 @@ export function Hero() {
             Try Interactive Demo 
             <ChevronRight className="ml-2 h-5 w-5 text-blue-400 group-hover:translate-x-1 transition-transform" />
           </Button>
+        </motion.div>
+
+        {/* Robot Mascot */}
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-16 flex justify-center"
+        >
+          <ImageWithFallback 
+            src={robotMascot} 
+            alt="FlashFusion Robot Mascot" 
+            className="w-full max-w-sm md:max-w-md h-auto drop-shadow-[0_0_50px_rgba(34,211,238,0.3)] hover:scale-105 transition-transform duration-500"
+          />
         </motion.div>
 
       </div>

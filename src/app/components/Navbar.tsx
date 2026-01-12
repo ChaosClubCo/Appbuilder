@@ -3,6 +3,8 @@ import { Button } from './ui/button';
 import { motion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
+import logoFull from 'figma:asset/cd521db578a3d14a15c7c3cc00d93db239fd603d.png';
+import { ImageWithFallback } from './figma/ImageWithFallback';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,12 +15,11 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <a href="#" className="flex items-center gap-2">
-              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500 font-bold text-white text-sm">
-                FF
-              </div>
-              <span className="text-2xl font-bold text-white tracking-tight">
-                FlashFusion
-              </span>
+              <ImageWithFallback 
+                src={logoFull} 
+                alt="FlashFusion Logo" 
+                className="h-12 w-auto object-contain"
+              />
             </a>
           </div>
           
