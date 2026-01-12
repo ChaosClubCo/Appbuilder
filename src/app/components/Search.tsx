@@ -18,15 +18,22 @@ export function Search() {
 
   return (
     <>
-      <div 
+      <button
         onClick={() => setOpen(true)}
-        className="hidden md:flex items-center gap-2 px-3 py-1.5 text-sm text-gray-400 bg-slate-900 border border-white/10 rounded-md hover:border-white/20 transition-colors cursor-pointer"
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setOpen(true);
+          }
+        }}
+        className="hidden md:flex items-center gap-2 px-3 py-1.5 text-sm text-gray-400 bg-slate-900 border border-white/10 rounded-md hover:border-white/20 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+        aria-label="Open search dialog (Cmd+K)"
       >
         <span className="text-xs">Search...</span>
         <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-slate-950 px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
           <span className="text-xs">⌘</span>K
         </kbd>
-      </div>
+      </button>
       
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Type a command or search..." className="text-white" />

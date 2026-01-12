@@ -5,8 +5,15 @@ import { Input } from './ui/input';
 import { Zap } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import mobileAppImage from 'figma:asset/6d92b79b8a00a67f055e0b2eb9b83ae89d113bf0.png';
+import { toast } from 'sonner';
 
 export function Newsletter() {
+  const handleSubscribe = () => {
+    toast.success("Welcome aboard!", {
+      description: "You've been added to the waiting list.",
+    });
+  };
+
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Background with slight gradient */}
@@ -45,7 +52,10 @@ export function Newsletter() {
                 placeholder="Enter your email" 
                 className="bg-slate-800/50 border-white/10 text-white placeholder:text-gray-500 h-12 rounded-lg"
               />
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white h-12 px-8 rounded-lg font-medium">
+              <Button 
+                onClick={handleSubscribe}
+                className="bg-blue-600 hover:bg-blue-700 text-white h-12 px-8 rounded-lg font-medium"
+              >
                 Subscribe
               </Button>
             </div>

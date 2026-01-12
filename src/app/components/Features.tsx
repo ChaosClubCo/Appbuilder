@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Zap, Cpu, Shield, RefreshCw, PenTool, Code } from 'lucide-react';
+import { FeatureDetails } from './FeatureDetails';
 
 const features = [
   {
@@ -36,6 +37,8 @@ const features = [
 ];
 
 export function Features() {
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+
   return (
     <section id="features" className="py-24 bg-slate-950 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -56,7 +59,8 @@ export function Features() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-slate-900/50 border border-white/5 rounded-2xl p-6 hover:bg-slate-800/50 hover:border-white/10 transition-all group"
+              onClick={() => setIsDetailsOpen(true)}
+              className="bg-slate-900/50 border border-white/5 rounded-2xl p-6 hover:bg-slate-800/50 hover:border-white/10 transition-all group cursor-pointer"
             >
               <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 {feature.icon}
@@ -67,6 +71,8 @@ export function Features() {
           ))}
         </div>
       </div>
+      
+      <FeatureDetails isOpen={isDetailsOpen} onClose={() => setIsDetailsOpen(false)} />
     </section>
   );
 }

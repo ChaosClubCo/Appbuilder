@@ -1,94 +1,91 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Calendar } from 'lucide-react';
-import { Button } from './ui/button';
+import { ImageWithFallback } from './figma/ImageWithFallback';
 
 const posts = [
   {
-    title: "Introducing FlashFusion 2.0",
-    excerpt: "The next generation of AI-powered design-to-code is here. See what's new in our latest major release.",
-    date: "Oct 12, 2025",
-    category: "Product",
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80"
+    title: 'The Future of AI-Generated UI',
+    excerpt: 'Why generative design is the next big leap for frontend developers.',
+    date: 'Mar 15, 2024',
+    category: 'Engineering',
+    image: 'https://images.unsplash.com/photo-1631375937044-6dd5beac01d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2RpbmclMjBjb2RlJTIwY29tcHV0ZXIlMjB0ZWNobm9sb2d5JTIwZnV0dXJlJTIwQUklMjBhYnN0cmFjdCUyMGJhY2tncm91bmQlMjBuZW9ufGVufDF8fHx8MTc2ODIwOTIxMnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
   },
   {
-    title: "How to Optimize React Performance",
-    excerpt: "Learn the advanced techniques we use to keep FlashFusion apps running at 60fps on mobile devices.",
-    date: "Sep 28, 2025",
-    category: "Engineering",
-    image: "https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=800&q=80"
+    title: 'Scaling to 1 Million Users',
+    excerpt: 'Lessons learned from optimizing our edge network for global traffic.',
+    date: 'Mar 10, 2024',
+    category: 'Infrastructure',
+    image: 'https://images.unsplash.com/photo-1569660424259-87e64a80f6fc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzZXJ2ZXIlMjByb29tJTIwZGF0YSUyMGNlbnRlciUyMHRlY2hub2xvZ3klMjBhYnN0cmFjdCUyMGJsdWV8ZW58MXx8fHwxNzY4MjA5MjMwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
   },
   {
-    title: "The Future of Generative UI",
-    excerpt: "Why static templates are dead and how dynamic, AI-generated interfaces are taking over.",
-    date: "Sep 15, 2025",
-    category: "Design",
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80"
+    title: 'Design Systems at Scale',
+    excerpt: 'How we maintain consistency across 50+ projects with one token set.',
+    date: 'Mar 05, 2024',
+    category: 'Design',
+    image: 'https://images.unsplash.com/photo-1762784574847-16c5100cd1ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBvZmZpY2UlMjBtZWV0aW5nJTIwY3JlYXRpdmUlMjB0ZWFtJTIwYnJhaW5zdG9ybWluZ3xlbnwxfHx8fDE3NjgyMDkyMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
   }
 ];
 
 export function BlogPreview() {
   return (
-    <section className="py-24 bg-slate-950 relative">
+    <section className="py-24 bg-slate-900/30 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-          <div className="text-left">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Latest from the Lab
+        <div className="flex justify-between items-end mb-12">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+              Latest Insights
             </h2>
-            <p className="text-gray-400 max-w-xl">
-              Insights, tutorials, and announcements from the FlashFusion team.
-            </p>
+            <p className="text-gray-400">Thinking, tutorials, and tales from the team.</p>
           </div>
-          <Button variant="outline" className="border-white/10 text-white hover:bg-white/10 hidden md:flex">
-            View All Posts <ArrowRight className="ml-2 w-4 h-4" />
-          </Button>
+          <a href="#" className="hidden md:flex items-center text-blue-400 hover:text-blue-300 transition-colors font-medium">
+            View all posts <ArrowRight className="w-4 h-4 ml-2" />
+          </a>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {posts.map((post, index) => (
-            <motion.div
+            <motion.article 
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group cursor-pointer"
+              className="group bg-slate-950 border border-white/10 rounded-2xl overflow-hidden hover:border-blue-500/30 transition-all cursor-pointer"
             >
-              <div className="rounded-xl overflow-hidden mb-4 relative aspect-video border border-white/5 bg-slate-900">
-                <img 
+              <div className="aspect-video relative overflow-hidden">
+                <ImageWithFallback 
                   src={post.image} 
                   alt={post.title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-4 left-4 bg-slate-950/80 backdrop-blur text-xs font-semibold text-white px-3 py-1 rounded-full border border-white/10">
+                <div className="absolute top-4 left-4 px-3 py-1 bg-slate-900/80 backdrop-blur-md rounded-full text-xs font-medium text-white border border-white/10">
                   {post.category}
                 </div>
               </div>
-              
-              <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
-                <Calendar className="w-4 h-4" />
-                <span>{post.date}</span>
+              <div className="p-6">
+                <div className="flex items-center gap-2 text-gray-500 text-xs mb-3">
+                  <Calendar className="w-3 h-3" />
+                  {post.date}
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">
+                  {post.title}
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed mb-4">
+                  {post.excerpt}
+                </p>
+                <div className="flex items-center text-blue-500 text-sm font-medium opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                  Read Article <ArrowRight className="w-4 h-4 ml-2" />
+                </div>
               </div>
-              
-              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">
-                {post.title}
-              </h3>
-              <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                {post.excerpt}
-              </p>
-              
-              <span className="text-blue-500 text-sm font-medium flex items-center group-hover:underline">
-                Read Article <ArrowRight className="ml-1 w-3 h-3" />
-              </span>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
         
-        <div className="mt-8 md:hidden">
-          <Button variant="outline" className="w-full border-white/10 text-white hover:bg-white/10">
-            View All Posts <ArrowRight className="ml-2 w-4 h-4" />
-          </Button>
+        <div className="mt-8 text-center md:hidden">
+            <a href="#" className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors font-medium">
+                View all posts <ArrowRight className="w-4 h-4 ml-2" />
+            </a>
         </div>
       </div>
     </section>

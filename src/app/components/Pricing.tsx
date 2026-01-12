@@ -2,12 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Check, X, Sparkles } from 'lucide-react';
 import { Button } from './ui/button';
-import { cn } from '../../lib/utils'; // Assuming a utility for class merging exists, otherwise will inline or use standard template literal
-
-// Fallback for cn if not available in project structure, though usually standard in shadcn setup
-function classNames(...classes: (string | undefined | null | false)[]) {
-  return classes.filter(Boolean).join(' ');
-}
+import { cn } from './ui/utils';
 
 type PricingTier = {
   name: string;
@@ -114,7 +109,10 @@ export function Pricing() {
             viewport={{ once: true }}
             className="flex items-center justify-center gap-4"
           >
-            <span className={classNames("text-sm font-medium transition-colors", billingCycle === 'monthly' ? "text-white" : "text-gray-500")}>Monthly</span>
+            <span className={cn(
+              "text-sm font-medium transition-colors",
+              billingCycle === 'monthly' ? "text-white" : "text-gray-500"
+            )}>Monthly</span>
             <button
               onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'yearly' : 'monthly')}
               className="relative w-14 h-7 bg-slate-800 rounded-full border border-white/10 p-1 transition-colors hover:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
@@ -122,13 +120,16 @@ export function Pricing() {
               <motion.div
                 layout
                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                className={classNames(
+                className={cn(
                   "w-5 h-5 rounded-full shadow-md",
                   billingCycle === 'monthly' ? "bg-gray-400 translate-x-0" : "bg-blue-500 translate-x-7"
                 )}
               />
             </button>
-            <span className={classNames("text-sm font-medium transition-colors", billingCycle === 'yearly' ? "text-white" : "text-gray-500")}>Yearly</span>
+            <span className={cn(
+              "text-sm font-medium transition-colors",
+              billingCycle === 'yearly' ? "text-white" : "text-gray-500"
+            )}>Yearly</span>
           </motion.div>
         </div>
 
@@ -141,7 +142,7 @@ export function Pricing() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className={classNames(
+              className={cn(
                 "relative flex flex-col p-8 rounded-2xl border transition-all duration-300",
                 tier.highlight 
                   ? "bg-slate-900/80 border-blue-500/50 shadow-2xl shadow-blue-500/10 scale-105 z-10" 
@@ -150,7 +151,7 @@ export function Pricing() {
             >
               {tier.highlight && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1">
-                  <Sparkles className="w-3 h-3" /> Most Popular
+                  <Sparkles className="w-3 h-3" aria-hidden="true" /> Most Popular
                 </div>
               )}
 
@@ -176,30 +177,37 @@ export function Pricing() {
               <div className="flex-grow mb-8 space-y-4">
                 {tier.features.map((feature) => (
                   <div key={feature} className="flex items-start gap-3 text-sm text-gray-300">
-                    <div className="flex items-center justify-center w-5 h-5 shrink-0">
+                    <div className="flex items-center justify-center w-5 h-5 shrink-0" aria-hidden="true">
                       <Check className="w-full h-full text-blue-400" />
                     </div>
-                    <span className="flex-1 text-left">{feature}</span>
+                    <span className="flex-1 text-left">
+                      <span className="sr-only">Included: </span>
+                      {feature}
+                    </span>
                   </div>
                 ))}
                 {tier.notIncluded?.map((feature) => (
                   <div key={feature} className="flex items-start gap-3 text-sm text-gray-600">
-                    <div className="flex items-center justify-center w-5 h-5 shrink-0">
+                    <div className="flex items-center justify-center w-5 h-5 shrink-0" aria-hidden="true">
                       <X className="w-full h-full" />
                     </div>
-                    <span className="flex-1 text-left">{feature}</span>
+                    <span className="flex-1 text-left">
+                      <span className="sr-only">Not included: </span>
+                      {feature}
+                    </span>
                   </div>
                 ))}
               </div>
 
               <Button 
                 variant={tier.highlight ? "default" : "outline"}
-                className={classNames(
+                className={cn(
                   "w-full h-12 rounded-xl font-semibold transition-all",
                   tier.highlight 
                     ? "bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white border-0 shadow-lg shadow-blue-500/20" 
                     : "border-white/10 text-white hover:bg-white/10 hover:text-white"
                 )}
+                aria-label={`${tier.cta} for ${tier.name} plan`}
               >
                 {tier.cta}
               </Button>

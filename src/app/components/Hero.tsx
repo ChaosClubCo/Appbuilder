@@ -6,6 +6,8 @@ import heroBackground from 'figma:asset/ac1592707009a6008e5d35d6cef2bbf48e598dca
 import robotMascot from 'figma:asset/aa3a04cafd8652eb28d940d90f801eba2f075c49.png';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
+import { VideoModal } from './VideoModal';
+
 export function Hero() {
   return (
     <section className="relative pt-32 pb-24 md:pt-48 md:pb-32 overflow-hidden min-h-screen flex items-center">
@@ -84,14 +86,16 @@ export function Hero() {
           >
             Get 50% Off - Start Building
           </Button>
-          <Button 
-            size="lg" 
-            variant="outline" 
-            className="w-full sm:w-auto bg-slate-900/50 border-blue-500/50 text-white hover:bg-slate-800 h-14 px-8 text-lg rounded-xl group"
-          >
-            Try Interactive Demo 
-            <ChevronRight className="ml-2 h-5 w-5 text-blue-400 group-hover:translate-x-1 transition-transform" />
-          </Button>
+          <VideoModal>
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="w-full sm:w-auto bg-slate-900/50 border-blue-500/50 text-white hover:bg-slate-800 h-14 px-8 text-lg rounded-xl group"
+            >
+              Try Interactive Demo 
+              <ChevronRight className="ml-2 h-5 w-5 text-blue-400 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </VideoModal>
         </motion.div>
 
         {/* Robot Mascot */}
