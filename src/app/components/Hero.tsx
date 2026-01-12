@@ -24,21 +24,21 @@ export function Hero() {
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight mb-8 leading-tight"
+          transition={{ duration: 0.4 }}
+          className="text-4xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight mb-8 leading-tight drop-shadow-lg"
         >
           Transform Ideas
           <br />
-          Into <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Reality</span>{' '}
-          With <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">AI</span>
+          Into <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 drop-shadow-none">Reality</span>{' '}
+          With <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500 drop-shadow-none">AI</span>
         </motion.h1>
         
         {/* Subheadline */}
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-lg md:text-xl text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed"
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="text-lg md:text-xl text-slate-200 mb-10 max-w-3xl mx-auto leading-relaxed drop-shadow-md"
         >
           The most advanced AI development platform that turns your concepts into production-ready applications, content, and revenue streams in minutes, not months.
         </motion.p>
@@ -47,19 +47,25 @@ export function Hero() {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
           className="flex flex-wrap justify-center gap-4 mb-12"
         >
           <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-orange-500/50 bg-orange-500/10 text-orange-300 text-sm font-medium">
-            <ArrowUpRight className="h-4 w-4" />
+            <div className="flex items-center justify-center w-4 h-4 shrink-0">
+              <ArrowUpRight className="w-full h-full" />
+            </div>
             <span>10x Faster Development</span>
           </div>
           <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/50 bg-cyan-500/10 text-cyan-300 text-sm font-medium">
-            <Shield className="h-4 w-4" />
+            <div className="flex items-center justify-center w-4 h-4 shrink-0">
+              <Shield className="w-full h-full" />
+            </div>
             <span>Enterprise Security</span>
           </div>
           <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-pink-500/50 bg-pink-500/10 text-pink-300 text-sm font-medium">
-            <DollarSign className="h-4 w-4" />
+            <div className="flex items-center justify-center w-4 h-4 shrink-0">
+              <DollarSign className="w-full h-full" />
+            </div>
             <span>Built-in Monetization</span>
           </div>
         </motion.div>
@@ -68,7 +74,7 @@ export function Hero() {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
           <Button 

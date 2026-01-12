@@ -36,7 +36,7 @@ export function Navbar() {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none"
+              className="inline-flex items-center justify-center p-3 rounded-md text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -51,11 +51,11 @@ export function Navbar() {
           animate={{ opacity: 1, y: 0 }}
           className="md:hidden bg-slate-900 border-b border-white/10"
         >
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="#features" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Features</a>
-            <a href="#how-it-works" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">How it Works</a>
-            <a href="#about" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
-            <div className="pt-4">
+          <div className="px-2 pt-2 pb-3 space-y-2 sm:px-3">
+            <a href="#features" className="text-gray-300 hover:text-white block px-3 py-4 rounded-md text-base font-medium">Features</a>
+            <a href="#how-it-works" className="text-gray-300 hover:text-white block px-3 py-4 rounded-md text-base font-medium">How it Works</a>
+            <a href="#about" className="text-gray-300 hover:text-white block px-3 py-4 rounded-md text-base font-medium">About</a>
+            <div className="pt-4 pb-4">
               <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white border-0">
                 Get Started
               </Button>

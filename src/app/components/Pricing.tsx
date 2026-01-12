@@ -176,14 +176,18 @@ export function Pricing() {
               <div className="flex-grow mb-8 space-y-4">
                 {tier.features.map((feature) => (
                   <div key={feature} className="flex items-start gap-3 text-sm text-gray-300">
-                    <Check className="w-5 h-5 text-blue-400 shrink-0" />
-                    <span>{feature}</span>
+                    <div className="flex items-center justify-center w-5 h-5 shrink-0">
+                      <Check className="w-full h-full text-blue-400" />
+                    </div>
+                    <span className="flex-1 text-left">{feature}</span>
                   </div>
                 ))}
                 {tier.notIncluded?.map((feature) => (
                   <div key={feature} className="flex items-start gap-3 text-sm text-gray-600">
-                    <X className="w-5 h-5 shrink-0" />
-                    <span>{feature}</span>
+                    <div className="flex items-center justify-center w-5 h-5 shrink-0">
+                      <X className="w-full h-full" />
+                    </div>
+                    <span className="flex-1 text-left">{feature}</span>
                   </div>
                 ))}
               </div>
