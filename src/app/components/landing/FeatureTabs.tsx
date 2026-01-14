@@ -1,6 +1,6 @@
 import React from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Code2, Paintbrush, Rocket, Database } from 'lucide-react';
 
 export function FeatureTabs() {

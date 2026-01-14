@@ -1,10 +1,10 @@
 import React from 'react';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import { motion } from 'motion/react';
 import { ArrowUpRight, Shield, DollarSign, ChevronRight } from 'lucide-react';
 import heroBackground from 'figma:asset/ac1592707009a6008e5d35d6cef2bbf48e598dca.png';
 import robotMascot from 'figma:asset/aa3a04cafd8652eb28d940d90f801eba2f075c49.png';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { ImageWithFallback } from '../figma/ImageWithFallback';
 
 import { VideoModal } from './VideoModal';
 

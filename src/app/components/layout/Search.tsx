@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from "./ui/command";
+import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from "../ui/command";
 import { Calculator, Calendar, CreditCard, Settings, User, Rocket, MessageSquare, Zap } from "lucide-react";
 
 export function Search() {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { ImageWithFallback } from '../figma/ImageWithFallback';
 import ragDiagram from 'figma:asset/6693192cd2014038c7e3b7c794c6659bfe4c230e.png';
 
 export function Architecture() {

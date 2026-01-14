@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Check, X, Sparkles } from 'lucide-react';
-import { Button } from './ui/button';
-import { cn } from './ui/utils';
+import { Button } from '../ui/button';
+import { cn } from '../ui/utils';
 
 type PricingTier = {
   name: string;

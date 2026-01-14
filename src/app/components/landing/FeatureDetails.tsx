@@ -5,7 +5,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from "./ui/dialog";
+} from "../ui/dialog";
 import { Zap, Code, Shield } from 'lucide-react';
 
 // This is a placeholder for a detailed view of a feature

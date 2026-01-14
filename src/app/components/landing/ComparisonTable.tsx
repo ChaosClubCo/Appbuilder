@@ -1,6 +1,6 @@
 import React from 'react';
 import { Check, X, Minus } from 'lucide-react';
-import { cn } from '../lib/utils';
+import { cn } from '../ui/utils';
 
 export function ComparisonTable() {
   return (

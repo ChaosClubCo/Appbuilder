@@ -4,7 +4,7 @@ import {
   DialogContent,
   DialogTrigger,
   DialogTitle,
-} from "./ui/dialog";
+} from "../ui/dialog";
 import { Play } from 'lucide-react';
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 

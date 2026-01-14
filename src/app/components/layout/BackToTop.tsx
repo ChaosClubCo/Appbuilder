@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowUp } from 'lucide-react';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 
 export function BackToTop() {
   const [isVisible, setIsVisible] = useState(false);

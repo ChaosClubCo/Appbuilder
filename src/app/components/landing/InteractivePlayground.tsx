@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Button } from './ui/button';
-import { Textarea } from './ui/textarea';
-import { Card } from './ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
+import { Button } from '../ui/button';
+import { Textarea } from '../ui/textarea';
+import { Card } from '../ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { Code, Sparkles, Copy, Check, Play } from 'lucide-react';
 import { toast } from 'sonner';
 

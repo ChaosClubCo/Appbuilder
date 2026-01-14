@@ -1,10 +1,10 @@
 import React from 'react';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import { motion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import logoFull from 'figma:asset/cd521db578a3d14a15c7c3cc00d93db239fd603d.png';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { Search } from './Search';
 
 export function Navbar() {

@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
 import { Zap } from 'lucide-react';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { ImageWithFallback } from '../figma/ImageWithFallback';
 import mobileAppImage from 'figma:asset/6d92b79b8a00a67f055e0b2eb9b83ae89d113bf0.png';
 import { toast } from 'sonner';
 
@@ -76,7 +76,7 @@ export function Newsletter() {
                />
                
                {/* Overlay gradient to blend bottom of image if needed */}
-               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
+               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent pointer-events-none" />
             </div>
           </motion.div>
           

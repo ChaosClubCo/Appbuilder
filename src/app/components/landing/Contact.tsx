@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Textarea } from './ui/textarea';
-import { Label } from './ui/label';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { Textarea } from '../ui/textarea';
+import { Label } from '../ui/label';
 import { Send, MessageSquare } from 'lucide-react';
 import { toast } from 'sonner';
 import { useState } from 'react';
