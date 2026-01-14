@@ -1,0 +1,177 @@
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Button } from '../ui/button';
+import { Badge } from '../ui/badge';
+import { ExternalLink, Layout, ShoppingCart, BarChart3, Globe, Smartphone, ArrowRight } from 'lucide-react';
+import { ImageWithFallback } from '../figma/ImageWithFallback';
+
+// Category types
+type Category = 'All' | 'SaaS' | 'E-commerce' | 'Portfolio' | 'Mobile' | 'Landing';
+
+// Template data interface
+interface Template {
+  id: string;
+  title: string;
+  category: Exclude<Category, 'All'>;
+  image: string;
+  description: string;
+}
+
+const templates: Template[] = [
+  {
+    id: '1',
+    title: 'Nexus Dashboard',
+    category: 'SaaS',
+    image: 'https://images.unsplash.com/photo-1575388902449-6bca946ad549?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBzYWFzJTIwZGFzaGJvYXJkJTIwZGFyayUyMG1vZGUlMjB1aXxlbnwxfHx8fDE3NjgzNzI5ODF8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    description: 'A comprehensive analytics dashboard with real-time data visualization widgets.'
+  },
+  {
+    id: '2',
+    title: 'Lumina Store',
+    category: 'E-commerce',
+    image: 'https://images.unsplash.com/photo-1615623705641-db34ad498cc5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBlLWNvbW1lcmNlJTIwd2Vic2l0ZSUyMGRlc2lnbiUyMGRhcmslMjB1aXxlbnwxfHx8fDE3NjgzNzI5ODF8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    description: 'Modern e-commerce storefront with product grid, cart drawer, and checkout flow.'
+  },
+  {
+    id: '3',
+    title: 'Folio Minimal',
+    category: 'Portfolio',
+    image: 'https://images.unsplash.com/photo-1695634621375-0b66a9d5d1bc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwcG9ydGZvbGlvJTIwd2Vic2l0ZSUyMGRlc2lnbnxlbnwxfHx8fDE3NjgzNzI5ODF8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    description: 'Clean, typography-focused portfolio template for creatives and designers.'
+  },
+  {
+    id: '4',
+    title: 'App Landing',
+    category: 'Mobile',
+    image: 'https://images.unsplash.com/photo-1768312208012-2e4199b0f571?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBhcHAlMjBsYW5kaW5nJTIwcGFnZSUyMGRhcmslMjB1aXxlbnwxfHx8fDE3NjgzNzI5ODF8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    description: 'High-conversion landing page optimized for mobile app downloads.'
+  },
+  {
+    id: '5',
+    title: 'Vantage Blog',
+    category: 'Landing',
+    image: 'https://images.unsplash.com/photo-1659841064804-5f507b1b488a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBibG9nJTIwd2Vic2l0ZSUyMGxheW91dCUyMGRhcmslMjB1aXxlbnwxfHx8fDE3NjgzNzI5ODJ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    description: 'Editorial-style blog layout with featured posts and newsletter signup.'
+  },
+  {
+    id: '6',
+    title: 'Growth Marketing',
+    category: 'Landing',
+    image: 'https://images.unsplash.com/photo-1760008486593-a85315610136?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYXJrZXRpbmclMjBsYW5kaW5nJTIwcGFnZSUyMGRlc2lnbiUyMHVpfGVufDF8fHx8MTc2ODM3Mjk4Mnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    description: 'Conversion-focused marketing page with pricing tables and lead capture.'
+  }
+];
+
+const categories: Category[] = ['All', 'SaaS', 'E-commerce', 'Portfolio', 'Mobile', 'Landing'];
+
+export function TemplateGallery() {
+  const [activeCategory, setActiveCategory] = useState<Category>('All');
+
+  const filteredTemplates = activeCategory === 'All' 
+    ? templates 
+    : templates.filter(t => t.category === activeCategory);
+
+  return (
+    <section className="py-24 bg-slate-900/20 relative border-t border-white/5">
+      {/* Background decoration */}
+      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:60px_60px]" />
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-purple-500/5 blur-[120px] rounded-full -z-10" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium mb-4">
+            <Layout className="w-4 h-4" />
+            <span>AI-Generated Library</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Start with a <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Template</span>
+          </h2>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Don't start from scratch. Choose from our collection of production-ready templates generated by FlashFusion AI and customize them to fit your brand.
+          </p>
+        </div>
+
+        {/* Filter Tabs */}
+        <div className="flex flex-wrap justify-center gap-2 mb-12">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setActiveCategory(category)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                activeCategory === category
+                  ? 'bg-white text-slate-900 shadow-lg shadow-white/10 scale-105'
+                  : 'bg-slate-900/50 text-gray-400 border border-white/10 hover:bg-slate-800 hover:text-white'
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
+        {/* Templates Grid */}
+        <motion.div 
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          <AnimatePresence mode='popLayout'>
+            {filteredTemplates.map((template) => (
+              <motion.div
+                layout
+                key={template.id}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.3 }}
+                className="group relative bg-slate-950 border border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all shadow-xl hover:shadow-2xl hover:shadow-purple-500/10"
+              >
+                {/* Image Container */}
+                <div className="aspect-[4/3] relative overflow-hidden">
+                  <ImageWithFallback
+                    src={template.image}
+                    alt={template.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-slate-950/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center flex-col gap-4 backdrop-blur-sm">
+                    <Button className="bg-white text-slate-950 hover:bg-gray-200 font-semibold rounded-full px-6">
+                      Preview Demo
+                    </Button>
+                    <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 rounded-full px-6">
+                      Use Template
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-6">
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">
+                      {template.title}
+                    </h3>
+                    <Badge variant="secondary" className="bg-slate-800 text-gray-300 border-white/5">
+                      {template.category}
+                    </Badge>
+                  </div>
+                  <p className="text-gray-400 text-sm leading-relaxed mb-4">
+                    {template.description}
+                  </p>
+                  <div className="flex items-center text-sm font-medium text-purple-400 group-hover:translate-x-1 transition-transform cursor-pointer">
+                    View Details <ArrowRight className="w-4 h-4 ml-1" />
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        <div className="mt-16 text-center">
+            <Button variant="outline" size="lg" className="border-white/10 text-white hover:bg-white/5 h-12 px-8 rounded-xl group">
+                View All Templates
+                <ExternalLink className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
+        </div>
+      </div>
+    </section>
+  );
+}

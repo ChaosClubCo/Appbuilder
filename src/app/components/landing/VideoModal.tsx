@@ -14,7 +14,10 @@ export function VideoModal({ children }: { children: React.ReactNode }) {
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[800px] bg-slate-950 border-white/10 p-0 overflow-hidden rounded-2xl">
+      <DialogContent 
+        className="sm:max-w-[800px] bg-slate-950 border-white/10 p-0 overflow-hidden rounded-2xl"
+        aria-describedby={undefined}
+      >
         <VisuallyHidden.Root>
           <DialogTitle>Demo Video</DialogTitle>
         </VisuallyHidden.Root>

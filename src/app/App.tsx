@@ -5,6 +5,7 @@ import { TrustedBy } from './components/landing/TrustedBy';
 import { Stats } from './components/landing/Stats';
 import { Features } from './components/landing/Features';
 import { InteractivePlayground } from './components/landing/InteractivePlayground';
+import { TemplateGallery } from './components/landing/TemplateGallery';
 import { ComparisonTable } from './components/landing/ComparisonTable';
 import { Architecture } from './components/landing/Architecture';
 import { WorkflowTabs } from './components/landing/WorkflowTabs';
@@ -40,6 +41,7 @@ export default function App() {
         <Stats />
         <Features />
         <InteractivePlayground />
+        <TemplateGallery />
         <ComparisonTable />
         <Architecture />
         <WorkflowTabs />
