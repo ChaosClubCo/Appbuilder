@@ -14,7 +14,7 @@ export function Terms({ children }: { children: React.ReactNode }) {
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="max-w-2xl bg-slate-950 border-white/10 text-white max-h-[80vh] flex flex-col">
+      <DialogContent hideDescription className="max-w-2xl bg-slate-950 border-white/10 text-white max-h-[80vh] flex flex-col">
         <DialogHeader>
           <DialogTitle>Terms of Service</DialogTitle>
         </DialogHeader>

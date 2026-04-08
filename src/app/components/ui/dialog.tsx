@@ -13,9 +13,39 @@ function Dialog({
 }
 
 function DialogTrigger({
+  asChild,
+  children,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Trigger>) {
-  return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />;
+  // Filter out Figma inspector props that shouldn't be passed to DOM elements
+  const {
+    _fgT,
+    _fgt,
+    _fgS,
+    _fgs,
+    _fgB,
+    _fgb,
+    _fgI,
+    _fgi,
+    ...cleanProps
+  } = props as any;
+  
+  // When using asChild, also filter Figma props from children
+  const cleanChildren = asChild && children && React.isValidElement(children)
+    ? React.cloneElement(children as React.ReactElement, {
+        ...Object.fromEntries(
+          Object.entries((children as React.ReactElement).props || {}).filter(
+            ([key]) => !key.startsWith('_fg')
+          )
+        ),
+      })
+    : children;
+  
+  return (
+    <DialogPrimitive.Trigger asChild={asChild} {...cleanProps}>
+      {cleanChildren}
+    </DialogPrimitive.Trigger>
+  );
 }
 
 function DialogPortal({
@@ -25,9 +55,39 @@ function DialogPortal({
 }
 
 function DialogClose({
+  asChild,
+  children,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Close>) {
-  return <DialogPrimitive.Close data-slot="dialog-close" {...props} />;
+  // Filter out Figma inspector props that shouldn't be passed to DOM elements
+  const {
+    _fgT,
+    _fgt,
+    _fgS,
+    _fgs,
+    _fgB,
+    _fgb,
+    _fgI,
+    _fgi,
+    ...cleanProps
+  } = props as any;
+  
+  // When using asChild, also filter Figma props from children
+  const cleanChildren = asChild && children && React.isValidElement(children)
+    ? React.cloneElement(children as React.ReactElement, {
+        ...Object.fromEntries(
+          Object.entries((children as React.ReactElement).props || {}).filter(
+            ([key]) => !key.startsWith('_fg')
+          )
+        ),
+      })
+    : children;
+  
+  return (
+    <DialogPrimitive.Close asChild={asChild} {...cleanProps}>
+      {cleanChildren}
+    </DialogPrimitive.Close>
+  );
 }
 
 const DialogOverlay = React.forwardRef<
