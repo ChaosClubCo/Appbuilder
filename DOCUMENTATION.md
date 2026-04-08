@@ -656,6 +656,27 @@ if (!mounted) return null;
 return <ClientOnlyComponent />;
 ```
 
+#### Figma Inspector Props Leaking to DOM (v2.2.0)
+
+**Problem:** React warnings about unknown DOM props (`_fgT`, `_fgt`, `_fgS`, `_fgs`, `_fgB`, `_fgb`) when using `DialogTrigger` or `DialogClose` with `asChild`
+
+**Solution:** The `dialog.tsx` component now automatically filters Figma-specific props (any prop starting with `_fg`) before passing children to Radix primitives. No action needed from developers.
+
+#### Invisible Text on Dark Backgrounds (v2.2.0)
+
+**Problem:** Button text invisible due to conflicting Tailwind color classes (e.g., `text-white text-[#000000]`)
+
+**Solution:** Use the standardized glassmorphism outline button pattern:
+```tsx
+<Button
+  variant="outline"
+  className="border-white/20 bg-white/5 text-white hover:bg-white/15 hover:text-white"
+>
+  Button Text
+</Button>
+```
+Avoid mixing `text-white` with other text color utilities. The last class wins in Tailwind, but specificity can vary with generated class names.
+
 ---
 
 ## 📚 Additional Resources
@@ -698,5 +719,5 @@ Copyright © 2026 FlashFusion / ChaosClubCo. All rights reserved.
 
 ---
 
-**Last Updated:** January 14, 2026  
-**Version:** 2.1.0
+**Last Updated:** April 8, 2026  
+**Version:** 2.2.0

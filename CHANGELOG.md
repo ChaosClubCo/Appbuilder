@@ -5,6 +5,30 @@ All notable changes to FlashFusion Landing Page will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-04-08
+
+### Fixed 🐛
+
+#### Figma Inspector Prop Warnings
+- **DialogTrigger & DialogClose** (`/src/app/components/ui/dialog.tsx`)
+  - Filtered out Figma-specific props (`_fgT`, `_fgt`, `_fgS`, `_fgs`, `_fgB`, `_fgb`) that were being passed to DOM elements when using the `asChild` pattern
+  - Clones child elements with cleaned props before passing them to Radix UI primitives
+  - Eliminates "Unknown prop" React console warnings in development
+
+#### Text Visibility / Contrast Fixes (App-Wide Audit)
+- **CookieConsent** (`/src/app/components/layout/CookieConsent.tsx`)
+  - Fixed "Decline" button having conflicting `text-white` and `text-[#000000]` classes causing invisible text on dark background
+  - Updated to `border-white/20 bg-white/5 text-white hover:bg-white/15` for consistent glassmorphism styling
+- **InteractivePlayground** (`/src/app/components/landing/InteractivePlayground.tsx`)
+  - Improved quick-example button contrast: increased border opacity, added subtle background (`bg-white/5`), ensured white text on hover, added visible focus ring (`focus-visible:ring-white/30`)
+
+#### Accessibility Improvements
+- Added `hideDescription` prop to **PrivacyPolicy.tsx**, **Terms.tsx**, and **VideoModal.tsx** dialogs to suppress "Missing Description or aria-describedby" warnings while maintaining screen reader compliance via a visually hidden description element
+
+### Changed 🔄
+- Standardized outline button styling across dark glassmorphism surfaces to use `border-white/20 bg-white/5 text-white hover:bg-white/15` pattern for WCAG AA contrast compliance
+- Updated documentation: CHANGELOG, DOCUMENTATION, and COMPONENT_GUIDE to reflect v2.2.0 changes
+
 ## [2.0.0] - 2026-01-12
 
 ### Added ✨

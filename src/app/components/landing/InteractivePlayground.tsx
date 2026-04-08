@@ -177,7 +177,7 @@ export function InteractivePlayground() {
                 variant="outline"
                 size="sm"
                 onClick={() => loadExample(example)}
-                className="border-white/10 text-white hover:bg-white/10"
+                className="border-white/20 bg-white/5 text-white hover:bg-white/15 hover:text-white focus-visible:ring-white/30"
               >
                 {example.name}
               </Button>

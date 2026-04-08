@@ -47,7 +47,7 @@ export function CookieConsent() {
               <Button 
                 variant="outline" 
                 onClick={handleDecline}
-                className="border-white/10 text-white hover:bg-white/10"
+                className="border-white/20 bg-white/5 text-white hover:bg-white/15 hover:text-white"
               >
                 Decline
               </Button>

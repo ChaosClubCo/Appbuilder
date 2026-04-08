@@ -550,7 +550,7 @@ const validate = () => {
 
 ### UI Components
 
-#### Dialog (Updated v2.1.0)
+#### Dialog (Updated v2.2.0)
 
 **Location:** `/src/app/components/ui/dialog.tsx`
 
@@ -931,5 +931,5 @@ When creating a new component:
 
 ---
 
-**Last Updated:** January 14, 2026  
-**Version:** 2.1.0
+**Last Updated:** April 8, 2026  
+**Version:** 2.2.0
