@@ -61,6 +61,7 @@ export function CookieConsent() {
             <button 
                 onClick={() => setIsVisible(false)}
                 className="absolute top-4 right-4 text-gray-500 hover:text-white md:hidden"
+                aria-label="Dismiss cookie consent"
             >
                 <X className="w-5 h-5" />
             </button>

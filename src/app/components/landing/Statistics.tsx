@@ -31,7 +31,7 @@ const stats = [
 ];
 
 const Counter = ({ value, duration = 2, decimals = 0 }: { value: number, duration?: number, decimals?: number }) => {
-  const [count,ZX] = useState(0);
+  const [count, setCount] = useState(0);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
@@ -47,7 +47,7 @@ const Counter = ({ value, duration = 2, decimals = 0 }: { value: number, duratio
         // Easing function (easeOutExpo)
         const easeOut = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
         
-        ZX(value * easeOut);
+        setCount(value * easeOut);
 
         if (progress < 1) {
           animationFrame = requestAnimationFrame(animate);

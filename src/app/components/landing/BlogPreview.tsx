@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Calendar } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
+import { toast } from 'sonner';
 
 const posts = [
   {
@@ -29,7 +30,7 @@ const posts = [
 
 export function BlogPreview() {
   return (
-    <section className="py-24 bg-slate-900/30 border-t border-white/5">
+    <section id="blog" className="py-24 bg-slate-900/30 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-end mb-12">
           <div>
@@ -38,7 +39,7 @@ export function BlogPreview() {
             </h2>
             <p className="text-gray-400">Thinking, tutorials, and tales from the team.</p>
           </div>
-          <a href="#" className="hidden md:flex items-center text-blue-400 hover:text-blue-300 transition-colors font-medium">
+          <a href="#blog" onClick={(e) => { e.preventDefault(); toast.info('Blog coming soon!', { description: 'Our engineering blog launches next month.' }); }} className="hidden md:flex items-center text-blue-400 hover:text-blue-300 transition-colors font-medium">
             View all posts <ArrowRight className="w-4 h-4 ml-2" />
           </a>
         </div>
@@ -52,6 +53,7 @@ export function BlogPreview() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               className="group bg-slate-950 border border-white/10 rounded-2xl overflow-hidden hover:border-blue-500/30 transition-all cursor-pointer"
+              onClick={() => toast.info(post.title, { description: post.excerpt })}
             >
               <div className="aspect-video relative overflow-hidden">
                 <ImageWithFallback 
@@ -83,7 +85,7 @@ export function BlogPreview() {
         </div>
         
         <div className="mt-8 text-center md:hidden">
-            <a href="#" className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors font-medium">
+            <a href="#blog" onClick={(e) => { e.preventDefault(); toast.info('Blog coming soon!', { description: 'Our engineering blog launches next month.' }); }} className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors font-medium">
                 View all posts <ArrowRight className="w-4 h-4 ml-2" />
             </a>
         </div>

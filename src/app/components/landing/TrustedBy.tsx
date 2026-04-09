@@ -26,7 +26,7 @@ export function TrustedBy() {
           {companies.map((company, index) => (
             <span 
               key={index} 
-              className="text-xl md:text-2xl font-bold text-gray-700 hover:text-gray-400 transition-colors cursor-default select-none"
+              className="text-xl md:text-2xl font-bold text-gray-500 hover:text-gray-300 transition-colors cursor-default select-none"
             >
               {company}
             </span>
@@ -34,7 +34,7 @@ export function TrustedBy() {
           {companies.map((company, index) => (
             <span 
               key={`dup-${index}`} 
-              className="text-xl md:text-2xl font-bold text-gray-700 hover:text-gray-400 transition-colors cursor-default select-none"
+              className="text-xl md:text-2xl font-bold text-gray-500 hover:text-gray-300 transition-colors cursor-default select-none"
             >
               {company}
             </span>
@@ -45,7 +45,7 @@ export function TrustedBy() {
           {companies.map((company, index) => (
             <span 
               key={`mq2-${index}`} 
-              className="text-xl md:text-2xl font-bold text-gray-700 hover:text-gray-400 transition-colors cursor-default select-none"
+              className="text-xl md:text-2xl font-bold text-gray-500 hover:text-gray-300 transition-colors cursor-default select-none"
             >
               {company}
             </span>
@@ -53,7 +53,7 @@ export function TrustedBy() {
           {companies.map((company, index) => (
             <span 
               key={`mq2-dup-${index}`} 
-              className="text-xl md:text-2xl font-bold text-gray-700 hover:text-gray-400 transition-colors cursor-default select-none"
+              className="text-xl md:text-2xl font-bold text-gray-500 hover:text-gray-300 transition-colors cursor-default select-none"
             >
               {company}
             </span>

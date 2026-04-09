@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Github, Twitter, Linkedin } from 'lucide-react';
+import { ImageWithFallback } from '../figma/ImageWithFallback';
+import { toast } from 'sonner';
 
 const team = [
   {
@@ -31,7 +33,7 @@ const team = [
 
 export function Team() {
   return (
-    <section className="py-24 bg-slate-950 border-t border-white/5">
+    <section id="about" className="py-24 bg-slate-950 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -53,20 +55,20 @@ export function Team() {
               className="group bg-slate-900/50 border border-white/10 rounded-2xl overflow-hidden hover:border-blue-500/30 transition-all"
             >
               <div className="aspect-square relative overflow-hidden">
-                <img 
+                <ImageWithFallback 
                   src={member.image} 
                   alt={member.name} 
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent opacity-80" />
                 <div className="absolute bottom-4 left-4 right-4 flex gap-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <a href="#" className="p-2 bg-white/10 backdrop-blur-md rounded-full hover:bg-white/20 text-white transition-colors">
+                    <a href="#" onClick={(e) => { e.preventDefault(); toast.info(`${member.name}'s Twitter`, { description: 'Social links coming soon!' }); }} className="p-2 bg-white/10 backdrop-blur-md rounded-full hover:bg-white/20 text-white transition-colors" aria-label={`${member.name} on Twitter`}>
                         <Twitter className="w-4 h-4" />
                     </a>
-                    <a href="#" className="p-2 bg-white/10 backdrop-blur-md rounded-full hover:bg-white/20 text-white transition-colors">
+                    <a href="#" onClick={(e) => { e.preventDefault(); toast.info(`${member.name}'s GitHub`, { description: 'Social links coming soon!' }); }} className="p-2 bg-white/10 backdrop-blur-md rounded-full hover:bg-white/20 text-white transition-colors" aria-label={`${member.name} on GitHub`}>
                         <Github className="w-4 h-4" />
                     </a>
-                    <a href="#" className="p-2 bg-white/10 backdrop-blur-md rounded-full hover:bg-white/20 text-white transition-colors">
+                    <a href="#" onClick={(e) => { e.preventDefault(); toast.info(`${member.name}'s LinkedIn`, { description: 'Social links coming soon!' }); }} className="p-2 bg-white/10 backdrop-blur-md rounded-full hover:bg-white/20 text-white transition-colors" aria-label={`${member.name} on LinkedIn`}>
                         <Linkedin className="w-4 h-4" />
                     </a>
                 </div>

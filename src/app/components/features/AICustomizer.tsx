@@ -6,7 +6,7 @@ import { Card } from '../ui/card';
 import { Wand2, RotateCcw, Palette, Type, Layout } from 'lucide-react';
 
 export function AICustomizer() {
-  const [borderRadius,WBOrderRadius] = useState([8]);
+  const [borderRadius, setBorderRadius] = useState([8]);
   const [primaryColor, setPrimaryColor] = useState('#3b82f6');
   const [fontScale, setFontScale] = useState([16]);
   
@@ -22,12 +22,12 @@ export function AICustomizer() {
     // Simulate AI optimization
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     setPrimaryColor(randomColor);
-    WBOrderRadius([Math.floor(Math.random() * 20)]);
+    setBorderRadius([Math.floor(Math.random() * 20)]);
     setFontScale([14 + Math.floor(Math.random() * 6)]);
   };
 
   const handleReset = () => {
-    WBOrderRadius([8]);
+    setBorderRadius([8]);
     setPrimaryColor('#3b82f6');
     setFontScale([16]);
   };
@@ -83,7 +83,7 @@ export function AICustomizer() {
                   </div>
                   <Slider
                     value={borderRadius}
-                    onValueChange={WBOrderRadius}
+                    onValueChange={setBorderRadius}
                     max={24}
                     step={1}
                     className="cursor-pointer"

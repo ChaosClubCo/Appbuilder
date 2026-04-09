@@ -31,6 +31,8 @@ export function StatusIndicator() {
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 px-3 py-1.5 bg-slate-900/80 backdrop-blur border border-white/10 rounded-full hover:bg-slate-800 transition-colors shadow-lg"
+        aria-label={`System status: ${getStatusText(status)}`}
+        aria-expanded={isOpen}
       >
         <div className={`w-2 h-2 rounded-full ${getStatusColor(status)} animate-pulse`} />
         <span className="text-xs font-medium text-gray-300">System Status</span>
@@ -65,7 +67,7 @@ export function StatusIndicator() {
             </div>
 
             <div className="mt-4 pt-3 border-t border-white/5 text-xs text-gray-500 text-center">
-              Last updated: Just now
+              Last updated: {new Date().toLocaleTimeString()}
             </div>
           </motion.div>
         )}

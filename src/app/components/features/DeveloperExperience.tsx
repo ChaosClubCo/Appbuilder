@@ -3,9 +3,10 @@ import { Card } from '../ui/card';
 import { Button } from '../ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { Code, Terminal, FileCode, Share2, Download, Braces } from 'lucide-react';
+import { toast } from 'sonner';
 
 const fileStructure = [
-  { name: 'src', type: 'folder' },
+  { name: 'src', type: 'folder', indent: 0 },
   { name: 'components', type: 'folder', indent: 1 },
   { name: 'Header.tsx', type: 'file', indent: 2 },
   { name: 'Hero.tsx', type: 'file', indent: 2 },
@@ -76,10 +77,17 @@ export function DeveloperExperience() {
             </div>
 
             <div className="mt-10 flex gap-4">
-              <Button className="bg-white text-slate-900 hover:bg-gray-200">
+              <Button 
+                className="bg-white text-slate-900 hover:bg-gray-200"
+                onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
+              >
                 View Documentation
               </Button>
-              <Button variant="outline" className="border-white/10 text-white hover:bg-white/5">
+              <Button 
+                variant="outline" 
+                className="border-white/10 text-white hover:bg-white/5 hover:text-white"
+                onClick={() => toast.info('API Explorer', { description: 'The API documentation will be available at launch.' })}
+              >
                 Explore API
               </Button>
             </div>
@@ -110,7 +118,7 @@ export function DeveloperExperience() {
                       <div 
                         key={i} 
                         className="flex items-center gap-2 text-sm text-gray-400 hover:text-white cursor-pointer"
-                        style={{ paddingLeft: `${file.indent * 12}px` }}
+                        style={{ paddingLeft: `${(file.indent || 0) * 12}px` }}
                       >
                         {file.type === 'folder' ? (
                           <span className="opacity-50">▸</span>
@@ -146,7 +154,7 @@ export function DeveloperExperience() {
                       <div className="flex gap-4">
                         <span className="text-white border-b border-white">TERMINAL</span>
                         <span>OUTPUT</span>
-                        <span>Kgf</span>
+                        <span>PROBLEMS</span>
                       </div>
                     </div>
                     <div className="font-mono text-xs text-gray-300">

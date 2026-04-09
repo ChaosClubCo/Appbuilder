@@ -272,12 +272,16 @@ export function InteractivePlayground() {
                 <TabsContent value="preview" className="mt-4">
                   <div className="bg-white rounded-lg min-h-[300px] max-h-[400px] overflow-auto p-4">
                     {generatedCode ? (
-                      <div className="text-sm text-gray-700">
-                        <div className="mb-2 text-xs text-gray-500 font-mono px-2 py-1 bg-gray-100 rounded">
-                          Preview rendering would show live component here
-                        </div>
-                        <div dangerouslySetInnerHTML={{ __html: `<!-- Preview mode: Component would render here -->` }} />
-                      </div>
+                      <div 
+                        className="text-sm prose prose-sm max-w-none"
+                        dangerouslySetInnerHTML={{ 
+                          __html: generatedCode
+                            .replace(/className=/g, 'class=')
+                            .replace(/{/g, '')
+                            .replace(/}/g, '')
+                            .replace(/<(\w+)\s/g, '<div data-component="$1" ')
+                        }} 
+                      />
                     ) : (
                       <div className="flex items-center justify-center h-[300px] text-gray-400">
                         Generate code to see preview
@@ -295,7 +299,10 @@ export function InteractivePlayground() {
           <p className="text-gray-400 mb-4">
             This is just a taste. <strong className="text-white">Sign up</strong> to unlock the full power of FlashFusion.
           </p>
-          <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-xl text-lg font-medium">
+          <Button 
+            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-xl text-lg font-medium"
+            onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+          >
             Start Free Trial
           </Button>
         </div>

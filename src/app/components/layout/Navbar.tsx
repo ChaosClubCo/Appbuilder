@@ -57,15 +57,22 @@ export function Navbar() {
                 How it Works
               </a>
               <a 
-                href="#about" 
+                href="#pricing" 
                 className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                About
+                Pricing
+              </a>
+              <a 
+                href="#contact" 
+                className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                Contact
               </a>
               <Search />
               <Button 
                 className="bg-orange-500 hover:bg-orange-600 text-white border-0"
                 aria-label="Get started with FlashFusion"
+                onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Start Free Trial
               </Button>
@@ -113,17 +120,26 @@ export function Navbar() {
               How it Works
             </a>
             <a 
-              href="#about" 
+              href="#pricing" 
               className="text-gray-300 hover:text-white block px-3 py-4 rounded-md text-base font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
               role="menuitem"
               onClick={() => setIsOpen(false)}
             >
-              About
+              Pricing
+            </a>
+            <a 
+              href="#contact" 
+              className="text-gray-300 hover:text-white block px-3 py-4 rounded-md text-base font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+              role="menuitem"
+              onClick={() => setIsOpen(false)}
+            >
+              Contact
             </a>
             <div className="pt-4 pb-4">
               <Button 
                 className="w-full bg-orange-500 hover:bg-orange-600 text-white border-0"
                 aria-label="Get started with FlashFusion"
+                onClick={() => { document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' }); }}
               >
                 Start Free Trial
               </Button>

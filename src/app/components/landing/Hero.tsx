@@ -83,8 +83,9 @@ export function Hero() {
           <Button 
             size="lg" 
             className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white border-0 h-14 px-8 text-lg rounded-xl font-semibold transition-transform hover:scale-105"
+            onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            Get 50% Off - Start Building
+            Start Free Trial — No Credit Card
           </Button>
           <VideoModal>
             <Button 

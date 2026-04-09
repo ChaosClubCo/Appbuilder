@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Check, X, Sparkles } from 'lucide-react';
 import { Button } from '../ui/button';
 import { cn } from '../ui/utils';
+import { toast } from 'sonner';
 
 type PricingTier = {
   name: string;
@@ -187,7 +188,7 @@ export function Pricing() {
                   </div>
                 ))}
                 {tier.notIncluded?.map((feature) => (
-                  <div key={feature} className="flex items-start gap-3 text-sm text-gray-600">
+                  <div key={feature} className="flex items-start gap-3 text-sm text-gray-500">
                     <div className="flex items-center justify-center w-5 h-5 shrink-0" aria-hidden="true">
                       <X className="w-full h-full" />
                     </div>
@@ -208,6 +209,17 @@ export function Pricing() {
                     : "border-white/10 text-white hover:bg-white/10 hover:text-white"
                 )}
                 aria-label={`${tier.cta} for ${tier.name} plan`}
+                onClick={() => {
+                  if (tier.name === 'Enterprise') {
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    toast.success(`${tier.name} plan selected!`, { 
+                      description: tier.price.monthly === '$0' 
+                        ? 'Create your free account to get started.' 
+                        : `You'll be redirected to checkout for the ${billingCycle} plan.` 
+                    });
+                  }
+                }}
               >
                 {tier.cta}
               </Button>

@@ -16,6 +16,11 @@ export function Search() {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
+  const runCommand = (callback: () => void) => {
+    setOpen(false);
+    callback();
+  };
+
   return (
     <>
       <button
@@ -39,33 +44,33 @@ export function Search() {
         <CommandInput placeholder="Type a command or search..." className="text-white" />
         <CommandList className="bg-slate-950 text-gray-300">
           <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Suggestions">
-            <CommandItem className="data-[selected='true']:bg-blue-600/20 data-[selected='true']:text-white">
-              <Rocket className="mr-2 h-4 w-4" />
-              <span>Get Started</span>
-            </CommandItem>
-            <CommandItem className="data-[selected='true']:bg-blue-600/20 data-[selected='true']:text-white">
+          <CommandGroup heading="Navigation">
+            <CommandItem onSelect={() => runCommand(() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' }))} className="data-[selected='true']:bg-blue-600/20 data-[selected='true']:text-white">
               <Zap className="mr-2 h-4 w-4" />
-              <span>View Features</span>
+              <span>Features</span>
             </CommandItem>
-            <CommandItem className="data-[selected='true']:bg-blue-600/20 data-[selected='true']:text-white">
+            <CommandItem onSelect={() => runCommand(() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' }))} className="data-[selected='true']:bg-blue-600/20 data-[selected='true']:text-white">
+              <CreditCard className="mr-2 h-4 w-4" />
+              <span>Pricing</span>
+            </CommandItem>
+            <CommandItem onSelect={() => runCommand(() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' }))} className="data-[selected='true']:bg-blue-600/20 data-[selected='true']:text-white">
+              <Rocket className="mr-2 h-4 w-4" />
+              <span>How it Works</span>
+            </CommandItem>
+            <CommandItem onSelect={() => runCommand(() => document.getElementById('playground')?.scrollIntoView({ behavior: 'smooth' }))} className="data-[selected='true']:bg-blue-600/20 data-[selected='true']:text-white">
               <Calendar className="mr-2 h-4 w-4" />
-              <span>Book Demo</span>
+              <span>Interactive Playground</span>
             </CommandItem>
           </CommandGroup>
           <CommandSeparator className="bg-white/10" />
-          <CommandGroup heading="Settings">
-            <CommandItem className="data-[selected='true']:bg-blue-600/20 data-[selected='true']:text-white">
+          <CommandGroup heading="Actions">
+            <CommandItem onSelect={() => runCommand(() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }))} className="data-[selected='true']:bg-blue-600/20 data-[selected='true']:text-white">
+              <MessageSquare className="mr-2 h-4 w-4" />
+              <span>Contact Support</span>
+            </CommandItem>
+            <CommandItem onSelect={() => runCommand(() => window.scrollTo({ top: 0, behavior: 'smooth' }))} className="data-[selected='true']:bg-blue-600/20 data-[selected='true']:text-white">
               <User className="mr-2 h-4 w-4" />
-              <span>Profile</span>
-            </CommandItem>
-            <CommandItem className="data-[selected='true']:bg-blue-600/20 data-[selected='true']:text-white">
-              <CreditCard className="mr-2 h-4 w-4" />
-              <span>Billing</span>
-            </CommandItem>
-            <CommandItem className="data-[selected='true']:bg-blue-600/20 data-[selected='true']:text-white">
-              <Settings className="mr-2 h-4 w-4" />
-              <span>Settings</span>
+              <span>Start Free Trial</span>
             </CommandItem>
           </CommandGroup>
         </CommandList>

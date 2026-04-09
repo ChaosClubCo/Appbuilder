@@ -25,6 +25,7 @@ import { CookieConsent } from './components/layout/CookieConsent';
 import { SkipNav } from './components/layout/SkipNav';
 import { Footer } from './components/layout/Footer';
 import { Toaster } from 'sonner';
+import { StatusIndicator } from './components/layout/Status';
 
 export default function App() {
   return (
@@ -57,6 +58,7 @@ export default function App() {
 
       <Footer />
       <BackToTop />
+      <StatusIndicator />
       <CookieConsent />
       <Toaster position="top-center" theme="dark" />
     </div>

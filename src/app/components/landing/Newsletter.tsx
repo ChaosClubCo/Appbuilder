@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -8,10 +8,21 @@ import mobileAppImage from 'figma:asset/6d92b79b8a00a67f055e0b2eb9b83ae89d113bf0
 import { toast } from 'sonner';
 
 export function Newsletter() {
+  const [email, setEmail] = useState('');
+
   const handleSubscribe = () => {
+    if (!email.trim()) {
+      toast.error("Please enter your email address.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
     toast.success("Welcome aboard!", {
       description: "You've been added to the waiting list.",
     });
+    setEmail('');
   };
 
   return (
@@ -49,8 +60,12 @@ export function Newsletter() {
             <div className="flex flex-col sm:flex-row gap-4 max-w-md">
               <Input 
                 type="email" 
-                placeholder="Enter your email" 
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSubscribe()}
                 className="bg-slate-800/50 border-white/10 text-white placeholder:text-gray-500 h-12 rounded-lg"
+                aria-label="Email address for newsletter"
               />
               <Button 
                 onClick={handleSubscribe}

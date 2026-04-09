@@ -1,7 +1,18 @@
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
+import { Layers, Zap, Code2, Rocket, CheckCircle, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
-import { Layers, Zap, Code2, Rocket } from 'lucide-react';
+
+function StepIllustration({ children, accentColor }: { children: React.ReactNode; accentColor: string }) {
+  return (
+    <div className="flex-1 bg-slate-900 rounded-xl aspect-video w-full border border-white/5 overflow-hidden relative">
+      <div className={`absolute inset-0 bg-gradient-to-br ${accentColor} opacity-5`} />
+      <div className="p-6 h-full flex flex-col justify-center">
+        {children}
+      </div>
+    </div>
+  );
+}
 
 export function WorkflowTabs() {
   return (
@@ -49,9 +60,26 @@ export function WorkflowTabs() {
                                 <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-blue-500" /> Vector import</li>
                             </ul>
                         </div>
-                        <div className="flex-1 bg-slate-900 rounded-xl aspect-video w-full flex items-center justify-center border border-white/5">
-                            <Layers className="w-16 h-16 text-gray-600" />
-                        </div>
+                        <StepIllustration accentColor="from-blue-500 to-purple-500">
+                          <div className="space-y-3">
+                            <div className="flex items-center gap-3 mb-4">
+                              <div className="w-6 h-6 rounded bg-pink-500/30 border border-pink-500/50" />
+                              <span className="text-xs text-gray-400 font-mono">Frame: Hero Section</span>
+                            </div>
+                            <div className="border border-dashed border-white/10 rounded-lg p-3 space-y-2">
+                              <div className="h-3 w-3/4 bg-white/10 rounded" />
+                              <div className="h-3 w-1/2 bg-white/10 rounded" />
+                              <div className="flex gap-2 mt-3">
+                                <div className="h-8 w-20 rounded bg-blue-500/30 border border-blue-500/50" />
+                                <div className="h-8 w-20 rounded bg-white/5 border border-white/10" />
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-2 mt-2">
+                              <CheckCircle className="w-3 h-3 text-green-400" />
+                              <span className="text-[10px] text-green-400 font-mono">Auto-layout detected</span>
+                            </div>
+                          </div>
+                        </StepIllustration>
                     </div>
                 </TabsContent>
 
@@ -64,9 +92,28 @@ export function WorkflowTabs() {
                                 We identify repetitive patterns, extract images, and generate clean, semantic React code.
                             </p>
                         </div>
-                        <div className="flex-1 bg-slate-900 rounded-xl aspect-video w-full flex items-center justify-center border border-white/5">
-                            <Zap className="w-16 h-16 text-yellow-500" />
-                        </div>
+                        <StepIllustration accentColor="from-yellow-500 to-orange-500">
+                          <div className="space-y-3">
+                            <div className="flex items-center gap-2 bg-slate-800 rounded-lg px-3 py-2 border border-white/10">
+                              <span className="text-xs text-gray-500">URL:</span>
+                              <span className="text-xs text-blue-400 font-mono truncate">figma.com/design/abc123...</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} className="w-4 h-4 border-2 border-yellow-400 border-t-transparent rounded-full" />
+                              <span className="text-xs text-yellow-400 font-mono">Analyzing 24 layers...</span>
+                            </div>
+                            <div className="space-y-1.5 mt-2">
+                              {['Header.tsx', 'Hero.tsx', 'Features.tsx'].map((f, i) => (
+                                <div key={f} className="flex items-center gap-2">
+                                  <CheckCircle className="w-3 h-3 text-green-400" />
+                                  <span className="text-[10px] text-gray-300 font-mono">{f}</span>
+                                  <ArrowRight className="w-3 h-3 text-gray-600 ml-auto" />
+                                  <span className="text-[10px] text-green-400 font-mono">Generated</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </StepIllustration>
                     </div>
                 </TabsContent>
 
@@ -79,9 +126,28 @@ export function WorkflowTabs() {
                                 or "animate this section". The AI understands context and modifies the codebase intelligently.
                             </p>
                         </div>
-                        <div className="flex-1 bg-slate-900 rounded-xl aspect-video w-full flex items-center justify-center border border-white/5">
-                            <Code2 className="w-16 h-16 text-blue-500" />
-                        </div>
+                        <StepIllustration accentColor="from-blue-500 to-cyan-500">
+                          <div className="space-y-3">
+                            <div className="bg-slate-800 rounded-lg p-2 border border-white/10">
+                              <div className="flex items-start gap-2">
+                                <div className="w-5 h-5 rounded-full bg-blue-500/30 flex items-center justify-center shrink-0 text-[8px] text-blue-400 font-bold">U</div>
+                                <p className="text-[10px] text-gray-300">"Add a responsive mobile menu with slide animation"</p>
+                              </div>
+                            </div>
+                            <div className="bg-slate-800/50 rounded-lg p-2 border border-blue-500/20">
+                              <div className="flex items-start gap-2">
+                                <div className="w-5 h-5 rounded-full bg-cyan-500/30 flex items-center justify-center shrink-0 text-[8px] text-cyan-400 font-bold">AI</div>
+                                <div className="text-[10px] text-gray-300 font-mono">
+                                  <span className="text-blue-400">{'const'}</span> [isOpen, setIsOpen] = <span className="text-yellow-400">useState</span>(<span className="text-orange-400">false</span>);
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <CheckCircle className="w-3 h-3 text-green-400" />
+                              <span className="text-[10px] text-green-400 font-mono">3 files modified</span>
+                            </div>
+                          </div>
+                        </StepIllustration>
                     </div>
                 </TabsContent>
 
@@ -94,9 +160,29 @@ export function WorkflowTabs() {
                                 The output is standard React/Next.js code that you fully own and can extend forever.
                             </p>
                         </div>
-                        <div className="flex-1 bg-slate-900 rounded-xl aspect-video w-full flex items-center justify-center border border-white/5">
-                            <Rocket className="w-16 h-16 text-purple-500" />
-                        </div>
+                        <StepIllustration accentColor="from-purple-500 to-pink-500">
+                          <div className="space-y-3">
+                            <div className="bg-slate-800 rounded-lg p-2 font-mono text-[10px] border border-white/10">
+                              <div className="text-green-400">$ flashfusion deploy --prod</div>
+                              <div className="text-gray-400 mt-1">Building project...</div>
+                              <div className="text-gray-400">Optimizing assets... <span className="text-blue-400">done</span></div>
+                              <div className="text-gray-400">Uploading to edge network...</div>
+                              <div className="text-green-400 mt-1">✓ Deployed to https://myapp.vercel.app</div>
+                            </div>
+                            <div className="grid grid-cols-3 gap-2 mt-2">
+                              {[
+                                { label: 'Build', value: '1.2s', color: 'text-green-400' },
+                                { label: 'Size', value: '48kb', color: 'text-blue-400' },
+                                { label: 'Score', value: '100', color: 'text-purple-400' },
+                              ].map((m) => (
+                                <div key={m.label} className="bg-slate-800/50 rounded p-2 text-center border border-white/5">
+                                  <div className={`text-xs font-bold ${m.color}`}>{m.value}</div>
+                                  <div className="text-[8px] text-gray-500">{m.label}</div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </StepIllustration>
                     </div>
                 </TabsContent>
             </div>

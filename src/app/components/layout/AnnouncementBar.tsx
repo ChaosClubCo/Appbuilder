@@ -19,7 +19,7 @@ export function AnnouncementBar() {
           <p className="flex-1 text-center md:text-left truncate">
             <span className="font-bold mr-2">New:</span> 
             FlashFusion 2.0 is now live! 
-            <a href="#" className="underline ml-2 hover:text-blue-100 transition-colors">Read the changelog &rarr;</a>
+            <a href="#features" className="underline ml-2 hover:text-blue-100 transition-colors">Read the changelog &rarr;</a>
           </p>
           <button 
             onClick={() => setIsVisible(false)}

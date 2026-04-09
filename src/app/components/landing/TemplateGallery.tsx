@@ -4,6 +4,7 @@ import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import { ExternalLink, Layout, ShoppingCart, BarChart3, Globe, Smartphone, ArrowRight } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
+import { toast } from 'sonner';
 
 // Category types
 type Category = 'All' | 'SaaS' | 'E-commerce' | 'Portfolio' | 'Mobile' | 'Landing';
@@ -134,13 +135,20 @@ export function TemplateGallery() {
                   
                   {/* Overlay */}
                   <div className="absolute inset-0 bg-slate-950/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center flex-col gap-4 backdrop-blur-sm">
-                    <Button className="bg-white text-slate-950 hover:bg-gray-200 font-semibold rounded-full px-6">
-                      Preview Demo
-                    </Button>
-                    <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 rounded-full px-6">
-                      Use Template
-                    </Button>
-                  </div>
+                     <Button 
+                       className="bg-white text-slate-950 hover:bg-gray-200 font-semibold rounded-full px-6"
+                       onClick={(e) => { e.stopPropagation(); toast.info('Preview opening...', { description: `Loading preview for ${template.title}` }); }}
+                     >
+                       Preview Demo
+                     </Button>
+                     <Button 
+                       variant="outline" 
+                       className="border-white/20 text-white hover:bg-white/10 hover:text-white rounded-full px-6"
+                       onClick={(e) => { e.stopPropagation(); toast.success('Template selected!', { description: `${template.title} added to your workspace. Sign up to customize it.` }); }}
+                     >
+                       Use Template
+                     </Button>
+                   </div>
                 </div>
 
                 {/* Content */}
@@ -156,7 +164,10 @@ export function TemplateGallery() {
                   <p className="text-gray-400 text-sm leading-relaxed mb-4">
                     {template.description}
                   </p>
-                  <div className="flex items-center text-sm font-medium text-purple-400 group-hover:translate-x-1 transition-transform cursor-pointer">
+                  <div 
+                    className="flex items-center text-sm font-medium text-purple-400 group-hover:translate-x-1 transition-transform cursor-pointer"
+                    onClick={() => toast.info(`${template.title}`, { description: template.description })}
+                  >
                     View Details <ArrowRight className="w-4 h-4 ml-1" />
                   </div>
                 </div>
@@ -166,7 +177,12 @@ export function TemplateGallery() {
         </motion.div>
 
         <div className="mt-16 text-center">
-            <Button variant="outline" size="lg" className="border-white/10 text-white hover:bg-white/5 h-12 px-8 rounded-xl group">
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="border-white/10 text-white hover:bg-white/5 hover:text-white h-12 px-8 rounded-xl group"
+              onClick={() => toast.info('Coming soon!', { description: 'Our full template library launches next month.' })}
+            >
                 View All Templates
                 <ExternalLink className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>

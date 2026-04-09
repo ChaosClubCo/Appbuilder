@@ -31,7 +31,7 @@ Core structural components that define the page layout and navigation.
 Content sections for the landing page.
 
 - **Hero** - Hero section with CTA
-- **VideoModal** - Video player modal
+- **VideoModal** - Multi-source video player (Placeholder, YouTube, Gemini AI)
 - **TrustedBy** - Logo marquee
 - **Stats** - Animated statistics
 - **Features** - Feature grid
@@ -334,6 +334,68 @@ const ctaSecondary = "Watch Demo";
   {heading}
 </motion.h1>
 ```
+
+---
+
+#### VideoModal (Rebuilt v2.2.0)
+
+**Location:** `/src/app/components/landing/VideoModal.tsx`
+
+**Purpose:** Multi-source video modal with YouTube embedding, interactive placeholder, and Gemini AI video generation.
+
+**Architecture:** 3-tab design (Demo Player | YouTube | Gemini AI) using ARIA tablist/tabpanel pattern.
+
+**Sub-Components:**
+- `PlaceholderPlayer` - Simulated video player with full controls, chapter markers, and animated code overlay
+- `YouTubeFacade` - Performance-optimized YouTube embed using the facade pattern (thumbnail-first, iframe on click)
+- `GeminiGenerator` - AI video generation panel with prompt input, style presets, duration/audio selectors, and real-time progress log
+
+**Key Best Practices Implemented:**
+1. **YouTube Facade Pattern** - Shows static thumbnail first, loads iframe only on user click (saves ~500KB initial load)
+2. **Privacy-Enhanced Embedding** - Uses `youtube-nocookie.com` domain for GDPR compliance
+3. **Lazy Loading** - All images and iframes use `loading="lazy"`
+4. **State Reset on Close** - Resets playback state when dialog closes to prevent background audio
+5. **Accessible Controls** - All buttons have `aria-label`, tabs use proper ARIA roles, focus-visible rings on all interactive elements
+
+**State Management:**
+```tsx
+const [activeSource, setActiveSource] = useState<'placeholder' | 'youtube' | 'gemini'>('placeholder');
+const [ytPlaying, setYtPlaying] = useState(false);
+const [isOpen, setIsOpen] = useState(false);
+```
+
+**YouTube Configuration:**
+```tsx
+const config: YouTubeConfig = {
+  videoId: 'YOUR_VIDEO_ID',  // Replace with actual demo video
+  autoplay: true,
+  muted: false,
+  controls: true,
+  privacyEnhanced: true,     // Uses youtube-nocookie.com
+};
+```
+
+**Gemini AI Prompt Interface:**
+```tsx
+interface GeminiPrompt {
+  text: string;
+  style: 'cinematic' | 'animated' | 'minimal' | 'documentary';
+  duration: '15s' | '30s' | '60s';
+  audio: 'none' | 'ambient' | 'narration' | 'music';
+}
+```
+
+**Usage:**
+```tsx
+<VideoModal>
+  <Button>Watch Demo</Button>
+</VideoModal>
+```
+
+**Customization:**
+- Replace `DEFAULT_YOUTUBE_CONFIG.videoId` with your actual YouTube video ID
+- Modify `DEMO_CHAPTERS` array to match your video's chapter timestamps
+- Connect `GeminiGenerator` to a real Gemini API endpoint for production use
 
 ---
 

@@ -25,18 +25,18 @@ export function Footer() {
             <h4 className="text-white font-semibold mb-4">Product</h4>
             <ul className="space-y-2 text-gray-400">
               <li><a href="#features" className="hover:text-blue-400 transition-colors">Features</a></li>
-              <li><a href="#" className="hover:text-blue-400 transition-colors">Integrations</a></li>
+              <li><a href="#how-it-works" className="hover:text-blue-400 transition-colors">Integrations</a></li>
               <li><a href="#pricing" className="hover:text-blue-400 transition-colors">Pricing</a></li>
-              <li><a href="#" className="hover:text-blue-400 transition-colors">Changelog</a></li>
+              <li><a href="#playground" className="hover:text-blue-400 transition-colors">Playground</a></li>
             </ul>
           </div>
           
           <div>
             <h4 className="text-white font-semibold mb-4">Company</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-blue-400 transition-colors">About Us</a></li>
-              <li><a href="#" className="hover:text-blue-400 transition-colors">Careers</a></li>
-              <li><a href="#" className="hover:text-blue-400 transition-colors">Blog</a></li>
+              <li><a href="#" className="hover:text-blue-400 transition-colors" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>About Us</a></li>
+              <li><a href="#contact" className="hover:text-blue-400 transition-colors">Careers</a></li>
+              <li><a href="#" className="hover:text-blue-400 transition-colors" onClick={(e) => { e.preventDefault(); document.querySelector('[id^="blog"]')?.scrollIntoView({ behavior: 'smooth' }) || window.scrollTo({ top: document.body.scrollHeight * 0.75, behavior: 'smooth' }); }}>Blog</a></li>
               <li><a href="#contact" className="hover:text-blue-400 transition-colors">Contact</a></li>
             </ul>
           </div>
