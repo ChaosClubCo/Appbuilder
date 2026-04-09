@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
-import { Zap } from 'lucide-react';
+import { Zap, Loader2, CheckCircle } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import mobileAppImage from 'figma:asset/6d92b79b8a00a67f055e0b2eb9b83ae89d113bf0.png';
 import { toast } from 'sonner';
+import { api } from '../utils/api';
 
 export function Newsletter() {
   const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
 
-  const handleSubscribe = () => {
+  const handleSubscribe = async () => {
     if (!email.trim()) {
       toast.error("Please enter your email address.");
       return;
@@ -19,10 +22,30 @@ export function Newsletter() {
       toast.error("Please enter a valid email address.");
       return;
     }
-    toast.success("Welcome aboard!", {
-      description: "You've been added to the waiting list.",
-    });
-    setEmail('');
+
+    setIsSubmitting(true);
+    try {
+      const result = await api.subscribeNewsletter(email);
+      if (result.alreadySubscribed) {
+        toast.info("You're already subscribed!", {
+          description: "We'll notify you as soon as we launch.",
+        });
+      } else {
+        toast.success("Welcome aboard!", {
+          description: result.message,
+        });
+      }
+      setIsSubscribed(true);
+      setEmail('');
+      api.trackEvent('newsletter_subscribed', { email });
+    } catch (error) {
+      console.error('Newsletter subscription error:', error);
+      toast.error("Failed to subscribe", {
+        description: error instanceof Error ? error.message : "Please try again later.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -57,23 +80,43 @@ export function Newsletter() {
               Get notified when we launch. Join our waiting list and be the first to experience the power of FlashFusion.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md">
-              <Input 
-                type="email" 
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSubscribe()}
-                className="bg-slate-800/50 border-white/10 text-white placeholder:text-gray-500 h-12 rounded-lg"
-                aria-label="Email address for newsletter"
-              />
-              <Button 
-                onClick={handleSubscribe}
-                className="bg-blue-600 hover:bg-blue-700 text-white h-12 px-8 rounded-lg font-medium"
+            {isSubscribed ? (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl px-5 py-4 max-w-md"
               >
-                Subscribe
-              </Button>
-            </div>
+                <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0" />
+                <div>
+                  <p className="text-emerald-400 font-medium text-sm">You're on the list!</p>
+                  <p className="text-gray-400 text-xs mt-0.5">We'll email you when FlashFusion launches.</p>
+                </div>
+              </motion.div>
+            ) : (
+              <div className="flex flex-col sm:flex-row gap-4 max-w-md">
+                <Input 
+                  type="email" 
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSubscribe()}
+                  className="bg-slate-800/50 border-white/10 text-white placeholder:text-gray-500 h-12 rounded-lg"
+                  aria-label="Email address for newsletter"
+                  disabled={isSubmitting}
+                />
+                <Button 
+                  onClick={handleSubscribe}
+                  disabled={isSubmitting}
+                  className="bg-blue-600 hover:bg-blue-700 text-white h-12 px-8 rounded-lg font-medium disabled:opacity-60"
+                >
+                  {isSubmitting ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    'Subscribe'
+                  )}
+                </Button>
+              </div>
+            )}
           </motion.div>
 
           <motion.div

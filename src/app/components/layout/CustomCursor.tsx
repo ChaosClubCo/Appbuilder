@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
+import { useReducedMotion } from '../utils/useReducedMotion';
 
 export function CustomCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isPointer, setIsPointer] = useState(false);
+  const prefersReduced = useReducedMotion();
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -21,8 +23,8 @@ export function CustomCursor() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Hide on mobile touch devices usually, but css media query is better.
-  // For simplicity, we just render. pointer-events-none is crucial.
+  // Hide for reduced motion preference or mobile
+  if (prefersReduced) return null;
 
   return (
     <>

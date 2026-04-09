@@ -117,14 +117,17 @@ export function Pricing() {
             <button
               onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'yearly' : 'monthly')}
               className="relative w-14 h-7 bg-slate-800 rounded-full border border-white/10 p-1 transition-colors hover:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              role="switch"
+              aria-checked={billingCycle === 'yearly'}
+              aria-label="Toggle yearly billing"
             >
               <motion.div
-                layout
-                transition={{ type: "spring", stiffness: 500, damping: 30 }}
                 className={cn(
                   "w-5 h-5 rounded-full shadow-md",
-                  billingCycle === 'monthly' ? "bg-gray-400 translate-x-0" : "bg-blue-500 translate-x-7"
+                  billingCycle === 'monthly' ? "bg-gray-400" : "bg-blue-500"
                 )}
+                animate={{ x: billingCycle === 'monthly' ? 0 : 24 }}
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
               />
             </button>
             <span className={cn(

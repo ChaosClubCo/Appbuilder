@@ -33,6 +33,7 @@ import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { Button } from '../ui/button';
 import { motion, AnimatePresence } from 'motion/react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
+import { api } from '../utils/api';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -393,36 +394,64 @@ function GeminiGenerator() {
     status: 'idle',
   });
   const [generationLog, setGenerationLog] = useState<string[]>([]);
+  const [scriptResult, setScriptResult] = useState<any>(null);
 
-  const handleGenerate = useCallback(() => {
+  const handleGenerate = useCallback(async () => {
     if (!prompt.text.trim()) return;
 
     setPrompt(prev => ({ ...prev, status: 'generating' }));
     setGenerationLog([]);
+    setScriptResult(null);
 
-    const steps = [
+    // Show initial steps while API call is in flight
+    const uiSteps = [
       'Analyzing prompt...',
       'Generating scene composition...',
       `Applying ${prompt.style} style filters...`,
-      'Rendering video frames (0%)...',
-      'Rendering video frames (25%)...',
-      'Rendering video frames (50%)...',
-      'Rendering video frames (75%)...',
-      `Generating ${prompt.audio} audio track...`,
-      'Compositing final video...',
-      'Encoding to MP4...',
-      'Generation complete!',
     ];
 
-    steps.forEach((step, i) => {
+    uiSteps.forEach((step, i) => {
       setTimeout(() => {
         setGenerationLog(prev => [...prev, step]);
-        if (i === steps.length - 1) {
-          setPrompt(prev => ({ ...prev, status: 'complete' }));
-        }
-      }, (i + 1) * 800);
+      }, (i + 1) * 600);
     });
-  }, [prompt.text, prompt.style, prompt.audio]);
+
+    try {
+      const result = await api.generateVideoScript({
+        prompt: prompt.text,
+        style: prompt.style,
+        duration: prompt.duration,
+        audio: prompt.audio,
+      });
+
+      // Show server-generated scenes as additional log entries
+      const serverSteps = result.script.scenes.map(
+        (scene: any, i: number) => `Scene ${i + 1}: ${scene.description.slice(0, 80)}...`
+      );
+
+      const allPostSteps = [
+        ...serverSteps,
+        `Generating ${prompt.audio} audio track...`,
+        'Compositing final video...',
+        'Encoding to MP4...',
+        `Generation complete! Script ID: ${result.scriptId}`,
+      ];
+
+      allPostSteps.forEach((step, i) => {
+        setTimeout(() => {
+          setGenerationLog(prev => [...prev, step]);
+          if (i === allPostSteps.length - 1) {
+            setPrompt(prev => ({ ...prev, status: 'complete' }));
+            setScriptResult(result.script);
+          }
+        }, (uiSteps.length + i + 1) * 500);
+      });
+    } catch (error) {
+      console.error('Gemini generation error:', error);
+      setGenerationLog(prev => [...prev, `Error: ${error instanceof Error ? error.message : 'Generation failed'}`]);
+      setPrompt(prev => ({ ...prev, status: 'error' }));
+    }
+  }, [prompt.text, prompt.style, prompt.audio, prompt.duration]);
 
   return (
     <div className="w-full h-full flex flex-col bg-slate-950">

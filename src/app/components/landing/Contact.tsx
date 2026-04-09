@@ -3,33 +3,32 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 import { Label } from '../ui/label';
-import { Send, MessageSquare } from 'lucide-react';
+import { Send, MessageSquare, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useState } from 'react';
+import { api } from '../utils/api';
 
 export function Contact() {
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const newErrors: Record<string, string> = {};
 
-    // Validate required fields
-    if (!formData.get('firstName')) {
-      newErrors.firstName = 'First name is required';
-    }
-    if (!formData.get('email')) {
+    const firstName = (formData.get('firstName') as string)?.trim();
+    const lastName = (formData.get('lastName') as string)?.trim();
+    const email = (formData.get('email') as string)?.trim();
+    const message = (formData.get('message') as string)?.trim();
+
+    if (!firstName) newErrors.firstName = 'First name is required';
+    if (!email) {
       newErrors.email = 'Email is required';
-    } else {
-      const email = formData.get('email') as string;
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        newErrors.email = 'Please enter a valid email';
-      }
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = 'Please enter a valid email';
     }
-    if (!formData.get('message')) {
-      newErrors.message = 'Message is required';
-    }
+    if (!message) newErrors.message = 'Message is required';
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -38,10 +37,23 @@ export function Contact() {
     }
 
     setErrors({});
-    toast.success("Message sent!", {
-      description: "We'll get back to you within 24 hours.",
-    });
-    e.currentTarget.reset();
+    setIsSubmitting(true);
+
+    try {
+      const result = await api.submitContact({ firstName, lastName, email, message });
+      toast.success("Message sent!", {
+        description: result.message,
+      });
+      e.currentTarget.reset();
+      api.trackEvent('contact_form_submitted', { email });
+    } catch (error) {
+      console.error('Contact form submission error:', error);
+      toast.error("Failed to send message", {
+        description: error instanceof Error ? error.message : "Please try again later.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -76,7 +88,7 @@ export function Contact() {
                 </div>
                 <div>
                   <h4 className="text-white font-semibold mb-1">Fill out the form</h4>
-                  <p className="text-sm text-gray-500">Tell us a bit about your project and needs.</p>
+                  <p className="text-sm text-gray-400">Tell us a bit about your project and needs.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -85,7 +97,7 @@ export function Contact() {
                 </div>
                 <div>
                   <h4 className="text-white font-semibold mb-1">We'll schedule a call</h4>
-                  <p className="text-sm text-gray-500">Our experts will reach out within 24 hours.</p>
+                  <p className="text-sm text-gray-400">Our experts will reach out within 24 hours.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -94,7 +106,7 @@ export function Contact() {
                 </div>
                 <div>
                   <h4 className="text-white font-semibold mb-1">Start building</h4>
-                  <p className="text-sm text-gray-500">Get access to the platform and start shipping.</p>
+                  <p className="text-sm text-gray-400">Get access to the platform and start shipping.</p>
                 </div>
               </div>
             </div>
@@ -113,6 +125,7 @@ export function Contact() {
                     placeholder="John" 
                     className="bg-slate-950/50 border-white/10 text-white" 
                     required
+                    disabled={isSubmitting}
                     aria-required="true"
                     aria-invalid={errors.firstName ? "true" : "false"}
                     aria-describedby={errors.firstName ? "firstName-error" : undefined}
@@ -129,7 +142,8 @@ export function Contact() {
                     id="lastName" 
                     name="lastName"
                     placeholder="Doe" 
-                    className="bg-slate-950/50 border-white/10 text-white" 
+                    className="bg-slate-950/50 border-white/10 text-white"
+                    disabled={isSubmitting}
                   />
                 </div>
               </div>
@@ -145,6 +159,7 @@ export function Contact() {
                   placeholder="john@company.com" 
                   className="bg-slate-950/50 border-white/10 text-white"
                   required
+                  disabled={isSubmitting}
                   aria-required="true"
                   aria-invalid={errors.email ? "true" : "false"}
                   aria-describedby={errors.email ? "email-error" : undefined}
@@ -166,6 +181,7 @@ export function Contact() {
                   placeholder="Tell us about your project..." 
                   className="bg-slate-950/50 border-white/10 text-white min-h-[120px]" 
                   required
+                  disabled={isSubmitting}
                   aria-required="true"
                   aria-invalid={errors.message ? "true" : "false"}
                   aria-describedby={errors.message ? "message-error" : undefined}
@@ -179,10 +195,20 @@ export function Contact() {
 
               <Button 
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white h-12 rounded-xl text-lg font-medium shadow-lg shadow-blue-500/20"
+                disabled={isSubmitting}
+                className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white h-12 rounded-xl text-lg font-medium shadow-lg shadow-blue-500/20 disabled:opacity-60"
               >
-                Send Message
-                <Send className="ml-2 w-4 h-4" aria-hidden="true" />
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 w-4 h-4 animate-spin" aria-hidden="true" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    Send Message
+                    <Send className="ml-2 w-4 h-4" aria-hidden="true" />
+                  </>
+                )}
               </Button>
             </form>
           </div>

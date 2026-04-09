@@ -6,6 +6,7 @@ import { Card } from '../ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { Code, Sparkles, Copy, Check, Play } from 'lucide-react';
 import { toast } from 'sonner';
+import { api } from '../utils/api';
 
 const examplePrompts = [
   {
@@ -111,19 +112,39 @@ export function InteractivePlayground() {
     }
 
     setIsGenerating(true);
+    api.trackEvent('playground_generate', { prompt: prompt.slice(0, 100) });
     
-    // Simulate AI generation with a delay
-    setTimeout(() => {
-      // Find matching example or use default
-      const example = examplePrompts.find(ex => 
-        prompt.toLowerCase().includes(ex.name.toLowerCase())
-      ) || examplePrompts[0];
-      
-      setGeneratedCode(example.output);
-      setIsGenerating(false);
-      toast.success('Code generated successfully!');
-      setCurrentView('code');
-    }, 1500);
+    // Smart template matching with multiple keyword checks
+    const promptLower = prompt.toLowerCase();
+    
+    // Simulate progressive generation for better UX
+    const steps = [400, 800, 1200];
+    let step = 0;
+    
+    const interval = setInterval(() => {
+      step++;
+      if (step >= steps.length) {
+        clearInterval(interval);
+        
+        // Find best matching example via multiple keyword overlap
+        let bestMatch = examplePrompts[0];
+        let bestScore = 0;
+        
+        for (const ex of examplePrompts) {
+          const keywords = ex.prompt.toLowerCase().split(/\s+/);
+          const score = keywords.filter(kw => kw.length > 3 && promptLower.includes(kw)).length;
+          if (score > bestScore) {
+            bestScore = score;
+            bestMatch = ex;
+          }
+        }
+        
+        setGeneratedCode(bestMatch.output);
+        setIsGenerating(false);
+        toast.success('Code generated successfully!');
+        setCurrentView('code');
+      }
+    }, 500);
   };
 
   const handleCopy = () => {

@@ -7,8 +7,14 @@ import robotMascot from 'figma:asset/aa3a04cafd8652eb28d940d90f801eba2f075c49.pn
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 
 import { VideoModal } from './VideoModal';
+import { useReducedMotion } from '../utils/useReducedMotion';
 
 export function Hero() {
+  const prefersReduced = useReducedMotion();
+  const animationProps = prefersReduced
+    ? { initial: undefined, animate: undefined, transition: undefined }
+    : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } };
+
   return (
     <section className="relative pt-32 pb-24 md:pt-48 md:pb-32 overflow-hidden min-h-screen flex items-center">
       {/* Background Image */}
@@ -25,9 +31,8 @@ export function Hero() {
         
         {/* Main Headline */}
         <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+          {...animationProps}
+          transition={prefersReduced ? undefined : { duration: 0.4 }}
           className="text-4xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight mb-8 leading-tight drop-shadow-lg"
         >
           Transform Ideas
@@ -38,9 +43,8 @@ export function Hero() {
         
         {/* Subheadline */}
         <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
+          {...animationProps}
+          transition={prefersReduced ? undefined : { duration: 0.4, delay: 0.1 }}
           className="text-lg md:text-xl text-slate-200 mb-10 max-w-3xl mx-auto leading-relaxed drop-shadow-md"
         >
           The most advanced AI development platform that turns your concepts into production-ready applications, content, and revenue streams in minutes, not months.
@@ -48,9 +52,8 @@ export function Hero() {
         
         {/* Feature Badges */}
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
+          {...animationProps}
+          transition={prefersReduced ? undefined : { duration: 0.4, delay: 0.2 }}
           className="flex flex-wrap justify-center gap-4 mb-12"
         >
           <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-orange-500/50 bg-orange-500/10 text-orange-300 text-sm font-medium">
@@ -75,9 +78,8 @@ export function Hero() {
         
         {/* CTA Buttons */}
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.3 }}
+          {...animationProps}
+          transition={prefersReduced ? undefined : { duration: 0.4, delay: 0.3 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
           <Button 
@@ -101,9 +103,9 @@ export function Hero() {
 
         {/* Robot Mascot */}
         <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          initial={prefersReduced ? undefined : { opacity: 0, y: 40 }}
+          animate={prefersReduced ? undefined : { opacity: 1, y: 0 }}
+          transition={prefersReduced ? undefined : { duration: 0.6, delay: 0.4 }}
           className="mt-16 flex justify-center"
         >
           <ImageWithFallback 
